@@ -8,27 +8,46 @@ Suivre Slash16 sur Facebook, Twitter et Linkedin.
 - [x] HDD -> 8Go -> virtual hard disk -> VDI -> Fixed Size
 - [x] Add OS -> Settings -> Storage -> IDE -> Choose your OS (Ubuntu server 18.04.2 (64) in my case)
 - [x] Avoir au moins une partition de 4.2 Go.
-| list partitions ```lsblk```
+|-> list partitions ```lsblk```
 - [ ] Updated
 - [ ] All packages needed installed
 ### V.3 Partie Réseau et Sécurité => NOT
 - [x] Create a non-root user to connect to the machine and work.
 - [x] Use sudo.
 - [x] Don't use DHCP -> config IP fixe with Netmask en /30.
-| config file ```vim /etc/netplan/50-cloud-init.yaml```
-| restart network ```sudo netplan --debug apply```
+|-> config file ```vim /etc/netplan/50-cloud-init.yaml```
+|-> restart network ```sudo netplan --debug apply```
 - [x] Change default port of SSH.
-| config file ```vim /etc/ssh/sshd_config``` + restart ssh
-| new port ```ssh -p 222 user@10.12.254.253```
+|-> config file ```vim /etc/ssh/sshd_config``` + restart ssh
+|-> new port ```ssh -p 222 user@10.12.254.253```
 - [ ] SSH access HAS TO be done with publickeys.
+|-> generate public key in clien host (MAC)
+|-> copy it to server in "file keys autorisation ola chi 7aja hakda"
+|-> test
 - [ ] SSH root access SHOULD NOT be allowed.
 - [ ] Set rules of your firewall on your server -> only with the services used outside the VM.
+|-> ufw
 - [ ] You have to set a DOS (Denial Of Service Attack) protection on your open ports of your VM.
+|-> file2bain (DOS protected) + Sloularis (DOS tool test)
 - [ ] You have to set a protection contre scans on your VM’s open ports.
+|-> portsentry
 - [ ] Stop the services you don’t need for this project.
+|-> only http/https, ssh, smtp
 - [ ] Create a script that updates all the sources of package, then your packages and qui log l’ensemble dans un fichier nommé /var/log/update_script.log.
+```sudo apt-get update >> /var/log/update_script.log```
+```sudo apt-get update >> /var/log/update_script.log```
+|->test
 - [ ]  Create a scheduled task for this script once a week at 4AM and every time the machine reboots.
 - [ ]  Make a script to monitor changes of the /etc/crontab file and sends an email to root if it has been modified. 
+```
+hash /etc/crontab file > origine_cron
+hash /etc/crontab file > new_cron
+if(new_cron != origine_cron)
+{
+  new_cron > origine_cron
+  send mait to root that cron file is modified 
+}
+```
 - [ ]  Create a scheduled script task every day at midnight.
 ## Chapitre VI: Partie optionnelle
 ### VI.1 Partie Web

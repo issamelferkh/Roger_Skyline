@@ -8,13 +8,18 @@ Suivre Slash16 sur Facebook, Twitter et Linkedin.
 - [x] HDD -> 8Go -> virtual hard disk -> VDI -> Fixed Size
 - [x] Add OS -> Settings -> Storage -> IDE -> Choose your OS (Ubuntu server 18.04.2 (64) in my case)
 - [x] Avoir au moins une partition de 4.2 Go.
+```lsblk```
 - [ ] Updated
 - [ ] All packages needed installed
 ### V.3 Partie Réseau et Sécurité => NOT
-- [ ] Create a non-root user to connect to the machine and work.
-- [ ] Use sudo.
-- [ ] Don't use DHCP -> config IP fixe with Netmask en /30.
-- [ ] Change default port of SSH.
+- [x] Create a non-root user to connect to the machine and work.
+- [x] Use sudo.
+- [x] Don't use DHCP -> config IP fixe with Netmask en /30.
+config file ```vim /etc/netplan/50-cloud-init.yaml```
+restart network ```sudo netplan --debug apply```
+- [x] Change default port of SSH.
+config file ```vim /etc/ssh/sshd_config``` + restart ssh
+new port ```ssh -p 222 user@10.12.254.253```
 - [ ] SSH access HAS TO be done with publickeys.
 - [ ] SSH root access SHOULD NOT be allowed.
 - [ ] Set rules of your firewall on your server -> only with the services used outside the VM.

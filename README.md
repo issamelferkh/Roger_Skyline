@@ -24,13 +24,19 @@ Suivre Slash16 sur Facebook, Twitter et Linkedin.
 |-> generate public key in clien host (MAC)
 |-> copy it to server in "file keys autorisation ola chi 7aja hakda"
 |-> test
+|-> http://go2linux.garron.me/linux/2010/10/ssh-public-key-only-login-authentication-788/
 - [ ] SSH root access SHOULD NOT be allowed.
 - [ ] Set rules of your firewall on your server -> only with the services used outside the VM.
 |-> ufw
+|-> https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands
 - [ ] You have to set a DOS (Denial Of Service Attack) protection on your open ports of your VM.
 |-> file2bain (DOS protected) + Sloularis (DOS tool test)
+|-> https://www.linode.com/docs/security/using-fail2ban-for-security/
+|-> https://www.maketecheasier.com/fail2ban-protect-apache-ddos/
+|-> https://blog.mypapit.net/2011/07/how-to-secure-ssh-server-from-brute-force-and-ddos-with-fail2ban-ubuntu.html
 - [ ] You have to set a protection contre scans on your VM’s open ports.
 |-> portsentry
+|-> https://www.noobunbox.net/serveur/securite/installer-et-configurer-portsentry-debian-ubuntu
 - [ ] Stop the services you don’t need for this project.
 |-> only http/https, ssh, smtp
 - [ ] Create a script that updates all the sources of package, then your packages and qui log l’ensemble dans un fichier nommé /var/log/update_script.log.
@@ -53,6 +59,8 @@ if(new_cron != origine_cron)
 ### VI.1 Partie Web
 - [ ]  Set a web server (Nginx or Apache) who should BE available on VM’s @IP or host (init.login.com for exemple).
 - [ ]  You have to set a self-signed SSL on all of your services.
+|-> https://blog.rapid7.com/2017/02/13/how-to-protect-ssh-and-apache-using-fail2ban-on-ubuntu-linux/
+|-> https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-18-04
 - [ ]  Set a webapp (with any language you wan) from those choices ->login page|display site|wonderful website that blow our minds.
 ### VI.2 Partie Déploiement
 - [ ]  Propose a functional solution for deployment automation.

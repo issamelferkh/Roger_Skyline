@@ -1,12 +1,16 @@
 # Roger Skyline 1
 ## Chapitre V: Partie obligatoire
 ### V.1 Soyons plus que copains !
-Suivre Slash16 sur Facebook, Twitter et Linkedin.
+Suivre Slash16 sur 
+- [x] Facebook
+- [x] Twittter
+- [x] Linkedin
 ### V.2 Partie VM
 #### Creating VM => NOT
+/Volumes/Storage/goinfre/iel-ferk/Roger_Skyline_1.vdi
 - [x] RAM -> 1024 Mo
 - [x] HDD -> 8Go -> virtual hard disk -> VDI -> Fixed Size
-- [x] Add OS -> Settings -> Storage -> IDE -> Choose your OS (Ubuntu server 18.04.2 (64) in my case)
+- [x] Add OS -> Settings -> Storage -> IDE -> Choose your OS (Ubuntu Server 18.04.3 LTS)
 - [x] Avoir au moins une partition de 4.2 Go.
 	|-> list partitions ```lsblk```
 - [ ] Updated
@@ -15,30 +19,31 @@ Suivre Slash16 sur Facebook, Twitter et Linkedin.
 ### V.3 Partie Réseau et Sécurité => NOT
 - [x] Create a non-root user to connect to the machine and work.
 	|-> ```adduser```
-	|-> ```usermod -a -G sudo user2``` for add user2 to sudo group
+	|-> ```usermod -a -G sudo user1``` for add user2 to sudo group
 - [x] Use sudo.
 - [x] Don't use DHCP -> config IP fixe with Netmask en /30.
 	|-> ```vim /etc/netplan/50-cloud-init.yaml``` config file 
 	|-> ```sudo netplan --debug apply``` restart network 
 
-- [x] Change default port of SSH.
-	|-> ```vim /etc/ssh/sshd_config``` config file + restart ssh
+- [ ] Change default port of SSH.
+	|-> ```vim /etc/ssh/sshd_config``` config file
+	|-> ```systemctl restart ssh``` restart ssh
 	|-> ```ssh -p 222 user@10.12.254.253``` new port 
 
-- [x] SSH access HAS TO be done with publickeys.
+- [ ] SSH access HAS TO be done with publickeys.
 	|-> ```ssh-keygen``` Generate SSH Keys in clien 
 	|-> ```ssh-copy-id -p 222 user1@10.12.254.253``` Copy pub key to server 
 	|-> ```ssh -p '222' 'user1@10.12.254.253'``` Try logging with user1
 	|-> Doc => http://go2linux.garron.me/linux/2010/10/ssh-public-key-only-login-authentication-788/
 
-- [x] SSH publickeys for new user without passwd.
+- [ ] SSH publickeys for new user without passwd.
 	|-> ```mkdir /home/user2/.ssh```
 	|-> ```chmod 777 /home/user2/.ssh```
 	|-> ```cp authorized_keys /home/user2/.ssh/```
 	|-> ```chown user2:user2 authorized_keys``` 
 	|-> ```ssh -p '222' 'user2@10.12.254.253'``` Try logging with user2
 
-- [x] SSH root access SHOULD NOT be allowed.
+- [ ] SSH root access SHOULD NOT be allowed.
 	|-> ```PermitRootLogin no``` in /etc/ssh/sshd_config 
 
 - [ ] Set rules of your firewall on your server -> only with the services used outside the VM.

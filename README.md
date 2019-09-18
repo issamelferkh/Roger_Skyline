@@ -12,7 +12,7 @@ Suivre Slash16 sur
 - [x] HDD -> 8Go -> virtual hard disk -> VDI -> Fixed Size
 - [x] Add OS -> Settings -> Storage -> IDE -> Choose your OS (Ubuntu Server 18.04.3 LTS)
 - [x] Avoir au moins une partition de 4.2 Go.
-	|-> list partitions ```lsblk```
+	|-> list partitions ```lsblk```netpl	
 - [ ] Updated
 - [ ] All packages needed installed
 
@@ -25,46 +25,76 @@ Suivre Slash16 sur
 	|-> ```vim /etc/netplan/50-cloud-init.yaml``` config file 
 	|-> ```sudo netplan --debug apply``` restart network 
 
-- [ ] Change default port of SSH.
+- [x] Change default port of SSH.
 	|-> ```vim /etc/ssh/sshd_config``` config file
 	|-> ```systemctl restart ssh``` restart ssh
 	|-> ```ssh -p 222 user@10.12.254.253``` new port 
 
-- [ ] SSH access HAS TO be done with publickeys.
+- [x] SSH access HAS TO be done with publickeys.
 	|-> ```ssh-keygen``` Generate SSH Keys in clien 
 	|-> ```ssh-copy-id -p 222 user1@10.12.254.253``` Copy pub key to server 
 	|-> ```ssh -p '222' 'user1@10.12.254.253'``` Try logging with user1
 	|-> Doc => http://go2linux.garron.me/linux/2010/10/ssh-public-key-only-login-authentication-788/
 
-- [ ] SSH publickeys for new user without passwd.
+- [x] SSH publickeys for new user without passwd.
 	|-> ```mkdir /home/user2/.ssh```
 	|-> ```chmod 777 /home/user2/.ssh```
 	|-> ```cp authorized_keys /home/user2/.ssh/```
-	|-> ```chown user2:user2 authorized_keys``` 
+	|-> ```chown user2:user2 .ssh```
+	|-> ```chown user2:user2 authorized_keys```
 	|-> ```ssh -p '222' 'user2@10.12.254.253'``` Try logging with user2
 
-- [ ] SSH root access SHOULD NOT be allowed.
+- [x] SSH root access SHOULD NOT be allowed.
 	|-> ```PermitRootLogin no``` in /etc/ssh/sshd_config 
-
-- [ ] Set rules of your firewall on your server -> only with the services used outside the VM.
-	|-> ufw
-	|-> https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands
-- [ ] You have to set a DOS (Denial Of Service Attack) protection on your open ports of your VM.
+- [x] All SSh config
+	|-> change default port ```#port 22``` to ```port 222```
+	|-> change protocol ```Protocol 2, 1``` to ```Protocol 2``` => ssh2 is more secure that ssh
+	|-> root should not be allowed to access ```PermitRootLogin yes``` to ```PermitRootLogin no```
+	|-> Disable password login ```#PasswordAuthentication yes``` to ```PasswordAuthentication no```
+	and ```ChallengeResponseAuthentication yes``` to ```ChallengeResponseAuthentication no``` 
+	
+- [x] Set rules of your firewall on your server -> only with the services used outside the VM.
+	|-> restart ```ufw disable``` and ```ufw enable```
+	|-> default config ```sudo ufw default deny incoming``` and ```sudo ufw default allow outgoing```
+	|-> deny ICMP Ping in /etc/ufw/before.rules ```# ok icmp codes for INPUT``` -> DROP
+	|-> cmd ```sudo ufw status or sudo ufw status verbose``` 
+	```sudo ufw allow 222```
+	```sudo ufw allow 443```
+- [.] You have to set a DOS (Denial Of Service Attack) protection on your open ports of your VM.
 	|-> file2bain (DOS protected) + Sloularis (DOS tool test)
-	|-> https://www.linode.com/docs/security/using-fail2ban-for-security/
 	|-> https://www.maketecheasier.com/fail2ban-protect-apache-ddos/
 	|-> https://blog.mypapit.net/2011/07/how-to-secure-ssh-server-from-brute-force-and-ddos-with-fail2ban-ubuntu.html
-- [ ] You have to set a protection contre scans on your VM’s open ports.
+- [x] You have to set a protection contre scans on your VM’s open ports.
 	|-> portsentry
+	|-> install ```sudo apt-get install portsentry```
+	|-> add ignored Hosts ```sudo nano /etc/portsentry/portsentry.ignore```
+	```# IPs from /etc/portsentry/portsentry.ignore.static:
+	```127.0.0.1/32
+	```# dynamically fetched IPs(via ifconfig -a):
+	```127.0.0.1
+	```# mes IPs
+	```xxx.xxx.xxx.xxx```
+	|-> portsentry file config ```sudo nano /etc/default/portsentry```
+	|-> activer ```TCP_MODE="atcp" et UDP_MODE="audp"``` pour bloquer ecoute
+	|-> fiche de config globale ```sudo nano nano /etc/portsentry/portsentry.conf```
+	|-> ```##################
+	```# Ignore Options #
+	```##################
+	```...
+	```# 0 = Do not block UDP/TCP scans.
+	```# 1 = Block UDP/TCP scans.
+	```# 2 = Run external command only (KILL_RUN_CMD)
+	```BLOCK_UDP="1"
+	```BLOCK_TCP="1"```
 	|-> https://www.noobunbox.net/serveur/securite/installer-et-configurer-portsentry-debian-ubuntu
-- [ ] Stop the services you don’t need for this project.
+- [x] Stop the services you don’t need for this project.
+	|-> show all services ```service --status-all```
 	|-> only http/https, ssh, smtp
-- [ ] Create a script that updates all the sources of package, then your packages and qui log l’ensemble dans un fichier nommé /var/log/update_script.log.
-```sudo apt-get update >> /var/log/update_script.log```
+- [.] Create a script that updates all the sources of package, then your packages and qui log l’ensemble dans un fichier nommé /var/log/update_script.log.
 ```sudo apt-get update >> /var/log/update_script.log```
 	|->test
 - [ ]  Create a scheduled task for this script once a week at 4AM and every time the machine reboots.
-- [ ]  Make a script to monitor changes of the /etc/crontab file and sends an email to root if it has been modified. 
+- [.]  Make a script to monitor changes of the /etc/crontab file and sends an email to root if it has been modified. 
 ```
 hash /etc/crontab file > origine_cron
 hash /etc/crontab file > new_cron
@@ -79,11 +109,11 @@ if(new_cron != origine_cron)
 
 ## Chapitre VI: Partie optionnelle
 ### VI.1 Partie Web
-- [ ]  Set a web server (Nginx or Apache) who should BE available on VM’s @IP or host (init.login.com for exemple).
+- [x]  Set a web server (Nginx or Apache) who should BE available on VM’s @IP or host (init.login.com for exemple).
 - [ ]  You have to set a self-signed SSL on all of your services.
 	|-> https://blog.rapid7.com/2017/02/13/how-to-protect-ssh-and-apache-using-fail2ban-on-ubuntu-linux/
 	|-> https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-18-04
-- [ ]  Set a webapp (with any language you wan) from those choices ->login page|display site|wonderful website that blow our minds.
+- [x]  Set a webapp (with any language you wan) from those choices ->login page|display site|wonderful website that blow our minds.
 
 
 ### VI.2 Partie Déploiement

@@ -1,3 +1,12 @@
+- 6[After] Install VM
+- 5[After] Network Config
+- [x] SSH Config
+- 3[Not Yet] Script Config
+- 4[Not Yet] Firewalling and Security Config
+- 2[Not Yet] Partie Web
+- 1[Not Yet] Partie Déploiement
+- 7[Not Yet] All Tests
+
 # Roger Skyline 1
 ## Chapitre V: Partie obligatoire
 ### V.1 Soyons plus que copains !
@@ -7,94 +16,54 @@ Suivre Slash16 sur
 - [x] Linkedin
 ### V.2 Partie VM
 #### Creating VM => NOT
-/Volumes/Storage/goinfre/iel-ferk/Roger_Skyline_1.vdi
+/Volumes/Storage/goinfre/iel-ferk/Roger_Skyline.vdi
 - [x] RAM -> 1024 Mo
 - [x] HDD -> 8Go -> virtual hard disk -> VDI -> Fixed Size
 - [x] Add OS -> Settings -> Storage -> IDE -> Choose your OS (Ubuntu Server 18.04.3 LTS)
 - [x] Avoir au moins une partition de 4.2 Go.
 	|-> list partitions ```lsblk```netpl	
-- [ ] Updated
-- [ ] All packages needed installed
+- [After] Updated
+- [After] All packages needed installed
 
 ### V.3 Partie Réseau et Sécurité => NOT
+#### V.3.1 Network Config
 - [x] Create a non-root user to connect to the machine and work.
-	|-> ```adduser```
-	|-> ```usermod -a -G sudo user1``` for add user2 to sudo group
-- [x] Use sudo.
-- [x] Don't use DHCP -> config IP fixe with Netmask en /30.
-	|-> ```vim /etc/netplan/50-cloud-init.yaml``` config file 
-	|-> ```sudo netplan --debug apply``` restart network 
+	|-> Create User ```adduser```
+	|-> Add user to sudo group ```usermod -a -G sudo user1```
+- [After] Don't use DHCP -> config IP fixe with Netmask en /30.
+	|-> Config @IP in ```vim /etc/netplan/50-cloud-init.yaml```
+	|-> Restart Network with ```sudo netplan --debug apply```
 
-- [x] Change default port of SSH.
-	|-> ```vim /etc/ssh/sshd_config``` config file
-	|-> ```systemctl restart ssh``` restart ssh
-	|-> ```ssh -p 222 user@10.12.254.253``` new port 
+#### V.3.2 SSH Config
+- [x] SSH config file in ```vim /etc/ssh/sshd_config```
+	|-> Change default port ```#port 22``` to ```port 222```
+	|-> Change protocol ```Protocol 2, 1``` to ```Protocol 2```, ssh2 is more secure that ssh1.
+	|-> Root should not be allowed to access ```PermitRootLogin yes``` to ```PermitRootLogin no```
+	|-> Disable password login ```#PasswordAuthentication yes``` to ```PasswordAuthentication no```
+		and ```ChallengeResponseAuthentication yes``` to ```ChallengeResponseAuthentication no```
+	|-> Pub key enable ```#PubKeyAuthentication no``` to ```PubKeyAuthentication yes```
+	|-> Restart Service SSH ```systemctl restart ssh```
+	|-> Try logging with new port ```ssh -p 222 user@10.12.254.253``` new port 
 
 - [x] SSH access HAS TO be done with publickeys.
-	|-> ```ssh-keygen``` Generate SSH Keys in clien 
-	|-> ```ssh-copy-id -p 222 user1@10.12.254.253``` Copy pub key to server 
-	|-> ```ssh -p '222' 'user1@10.12.254.253'``` Try logging with user1
+	|-> Generate SSH Keys in clien ```ssh-keygen```  
+	|-> Copy pub key to server ```ssh-copy-id -p 222 user1@10.12.254.253``` 
+	|-> Try logging with user1 ```ssh -p '222' 'user1@10.12.254.253'``` 
 	|-> Doc => http://go2linux.garron.me/linux/2010/10/ssh-public-key-only-login-authentication-788/
 
 - [x] SSH publickeys for new user without passwd.
-	|-> ```mkdir /home/user2/.ssh```
-	|-> ```chmod 777 /home/user2/.ssh```
-	|-> ```cp authorized_keys /home/user2/.ssh/```
-	|-> ```chown user2:user2 .ssh```
-	|-> ```chown user2:user2 authorized_keys```
-	|-> ```ssh -p '222' 'user2@10.12.254.253'``` Try logging with user2
+	|-> Creat ~.ssh folder for user2 ```mkdir /home/user2/.ssh```
+	|-> Change permission ```chmod 777 /home/user2/.ssh```
+	|-> Copy pub key to home/.ssh user2 ```cp authorized_keys /home/user2/.ssh/```
+	|-> Change Owner ```chown user2:user2 .ssh``` and ```chown user2:user2 authorized_keys```
+	|-> Try logging with user2 ```ssh -p '222' 'user2@10.12.254.253'```
 
-- [x] SSH root access SHOULD NOT be allowed.
-	|-> ```PermitRootLogin no``` in /etc/ssh/sshd_config 
-- [x] All SSh config
-	|-> change default port ```#port 22``` to ```port 222```
-	|-> change protocol ```Protocol 2, 1``` to ```Protocol 2``` => ssh2 is more secure that ssh
-	|-> root should not be allowed to access ```PermitRootLogin yes``` to ```PermitRootLogin no```
-	|-> Disable password login ```#PasswordAuthentication yes``` to ```PasswordAuthentication no```
-	and ```ChallengeResponseAuthentication yes``` to ```ChallengeResponseAuthentication no``` 
-	
-- [x] Set rules of your firewall on your server -> only with the services used outside the VM.
-	|-> restart ```ufw disable``` and ```ufw enable```
-	|-> default config ```sudo ufw default deny incoming``` and ```sudo ufw default allow outgoing```
-	|-> deny ICMP Ping in /etc/ufw/before.rules ```# ok icmp codes for INPUT``` -> DROP
-	|-> cmd ```sudo ufw status or sudo ufw status verbose``` 
-	```sudo ufw allow 222```
-	```sudo ufw allow 443```
-- [.] You have to set a DOS (Denial Of Service Attack) protection on your open ports of your VM.
-	|-> file2bain (DOS protected) + Sloularis (DOS tool test)
-	|-> https://www.maketecheasier.com/fail2ban-protect-apache-ddos/
-	|-> https://blog.mypapit.net/2011/07/how-to-secure-ssh-server-from-brute-force-and-ddos-with-fail2ban-ubuntu.html
-- [x] You have to set a protection contre scans on your VM’s open ports.
-	|-> portsentry
-	|-> install ```sudo apt-get install portsentry```
-	|-> add ignored Hosts ```sudo nano /etc/portsentry/portsentry.ignore```
-	```# IPs from /etc/portsentry/portsentry.ignore.static:
-	```127.0.0.1/32
-	```# dynamically fetched IPs(via ifconfig -a):
-	```127.0.0.1
-	```# mes IPs
-	```xxx.xxx.xxx.xxx```
-	|-> portsentry file config ```sudo nano /etc/default/portsentry```
-	|-> activer ```TCP_MODE="atcp" et UDP_MODE="audp"``` pour bloquer ecoute
-	|-> fiche de config globale ```sudo nano nano /etc/portsentry/portsentry.conf```
-	|-> ```##################
-	```# Ignore Options #
-	```##################
-	```...
-	```# 0 = Do not block UDP/TCP scans.
-	```# 1 = Block UDP/TCP scans.
-	```# 2 = Run external command only (KILL_RUN_CMD)
-	```BLOCK_UDP="1"
-	```BLOCK_TCP="1"```
-	|-> https://www.noobunbox.net/serveur/securite/installer-et-configurer-portsentry-debian-ubuntu
-- [x] Stop the services you don’t need for this project.
-	|-> show all services ```service --status-all```
-	|-> only http/https, ssh, smtp
-- [.] Create a script that updates all the sources of package, then your packages and qui log l’ensemble dans un fichier nommé /var/log/update_script.log.
+#### V.3.3 Script Config
+- [ ] Create a script that updates all the sources of package, then your packages and qui log l’ensemble dans un fichier nommé /var/log/update_script.log.
 ```sudo apt-get update >> /var/log/update_script.log```
 	|->test
 - [ ]  Create a scheduled task for this script once a week at 4AM and every time the machine reboots.
-- [.]  Make a script to monitor changes of the /etc/crontab file and sends an email to root if it has been modified. 
+- [ ]  Make a script to monitor changes of the /etc/crontab file and sends an email to root if it has been modified. 
 ```
 hash /etc/crontab file > origine_cron
 hash /etc/crontab file > new_cron
@@ -106,18 +75,42 @@ if(new_cron != origine_cron)
 ```
 - [ ]  Create a scheduled script task every day at midnight.
 
+#### V.3.4 Firewalling and Security Config
+	
+- [ ] Set Firewall rules for allow only the services used outside the VM.
+	|-> restart ```ufw disable``` and ```ufw enable```
+	|-> default config ```sudo ufw default deny incoming``` and ```sudo ufw default allow outgoing```
+	|-> deny ICMP Ping in /etc/ufw/before.rules ```# ok icmp codes for INPUT``` -> DROP
+	|-> cmd ```sudo ufw status or sudo ufw status verbose``` 
+	```sudo ufw allow 222```
+	```sudo ufw allow 443```
+- [ ] Set DOS protection on open ports of your VM.
+	|-> file2bain (DOS protected) + Sloularis (DOS tool test)
+	|-> https://www.maketecheasier.com/fail2ban-protect-apache-ddos/
+	|-> https://blog.mypapit.net/2011/07/how-to-secure-ssh-server-from-brute-force-and-ddos-with-fail2ban-ubuntu.html
+- [ ] Set Portscan protection on open ports of your VM.
+	|-> http://www.auxnet.org/index.php/the-news/216-how-to-protect-from-port-scanning-and-smurf-attack-in-linux-server-by-iptables
+	|-> https://it.toolbox.com/question/how-to-block-port-scanning-tools-and-log-them-with-iptables-051115
+- [ ] Stop the services you don’t need for this project.
+	|-> Show all services ```service --status-all```
+	|-> Run only: http(80), https(443), ssh(222), ftp()
+
+
 
 ## Chapitre VI: Partie optionnelle
 ### VI.1 Partie Web
-- [x]  Set a web server (Nginx or Apache) who should BE available on VM’s @IP or host (init.login.com for exemple).
+- [ ]  Set a web server (Nginx or Apache) who should BE available on VM’s @IP or host (init.login.com for exemple).
+	|-> Apache
 - [ ]  You have to set a self-signed SSL on all of your services.
 	|-> https://blog.rapid7.com/2017/02/13/how-to-protect-ssh-and-apache-using-fail2ban-on-ubuntu-linux/
 	|-> https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-18-04
-- [x]  Set a webapp (with any language you wan) from those choices ->login page|display site|wonderful website that blow our minds.
+- [ ]  Set a webapp (with any language you wan) from those choices ->login page|display site|wonderful website that blow our minds.
 
 
 ### VI.2 Partie Déploiement
 - [ ]  Propose a functional solution for deployment automation.
+	|-> FTP Server
+
 
 ## Helpful Links 
 ### Verify your download

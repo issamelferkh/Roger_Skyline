@@ -4,7 +4,7 @@
 - 3[Not Yet] Script Config
 - 4[Not Yet] Firewalling and Security Config
 - 2[Not Yet] Partie Web
-- 1[Not Yet] Partie Déploiement
+- 1[Doc] Partie Déploiement
 - 7[Not Yet] All Tests
 
 # Roger Skyline 1

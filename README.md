@@ -100,7 +100,8 @@ if(new_cron != origine_cron)
 ## Chapitre VI: Partie optionnelle
 ### VI.1 Partie Web
 - [ ]  Set a web server (Nginx or Apache) who should BE available on VM’s @IP or host (init.login.com for exemple).
-	|-> Apache
+	|-> Install Apache ```apt-get install apache2```
+	|-> WWW Folder is in ```cd /var/www/html/```
 - [ ]  You have to set a self-signed SSL on all of your services.
 	|-> https://blog.rapid7.com/2017/02/13/how-to-protect-ssh-and-apache-using-fail2ban-on-ubuntu-linux/
 	|-> https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-18-04
@@ -109,7 +110,17 @@ if(new_cron != origine_cron)
 
 ### VI.2 Partie Déploiement
 - [ ]  Propose a functional solution for deployment automation.
-	|-> FTP Server
+	|-> Install FTP Server ```apt-get install vsftpd```
+	|-> Add user for FTP Server ```adduser ftpuser```
+	|-> Change home folder ```usermod -d /var/www ftpuser```
+	|-> Change owner ```chown ftpuser:ftpuser /var/www/``` and ```chown ftpuser:ftpuser /var/www/html/```
+	|-> Config vsftp in ```vim /etc/vsftpd.conf```
+creat bak file config ```cp /etc/vsftpd.conf /etc/vsftpd.conf.bak```
+Allow ftp users to write to the server ```write_enable=YES```
+Deny ftp users browsing outside ```chroot_local_user=YES```
+Give the correct permissions to the uploaded files ```local_umask=022```
+Force ftp to show files begin with dot like ".htaccess" add to the bottom this line ```force_dot_files=YES```
+Bypass the writable check in ftp server add to the bottom this line ```allow_writeable_chroot=YES```
 
 
 ## Helpful Links 

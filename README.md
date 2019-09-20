@@ -103,13 +103,12 @@ if(new_cron != origine_cron)
 	|-> Install Apache ```apt-get install apache2```
 	|-> WWW Folder is in ```cd /var/www/html/```
 - [ ]  You have to set a self-signed SSL on all of your services.
-	|-> https://blog.rapid7.com/2017/02/13/how-to-protect-ssh-and-apache-using-fail2ban-on-ubuntu-linux/
-	|-> https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-18-04
-- [ ]  Set a webapp (with any language you wan) from those choices ->login page|display site|wonderful website that blow our minds.
+
+- [x]  Set a webapp (with any language you wan) from those choices ->login page.
 
 
 ### VI.2 Partie Déploiement
-- [ ]  Propose a functional solution for deployment automation.
+- [x]  Propose a functional solution for deployment automation.
 	|-> Install FTP Server ```apt-get install vsftpd```
 	|-> Add user for FTP Server ```adduser ftpuser```
 	|-> Change home folder ```usermod -d /var/www ftpuser```
@@ -126,10 +125,13 @@ Bypass the writable check in ftp server add to the bottom this line ```allow_wri
 ## Helpful Links 
 ### Verify your download
 - input => ```echo "ea6ccb5b57813908c006f42f7ac8eaa4fc603883a2d07876cf9ed74610ba2f53 *ubuntu-18.04.2-live-server-amd64.iso" | shasum -a 256 --check```
-- output => ubuntu-18.04.2-live-server-amd64.iso: OK
+- output => ubuntu-18.04.3-live-server-amd64.iso: OK
 ### Network config => NOT
 - bridge or NAT or ... look at -> https://www.virtualbox.org/manual/ch06.html
 ## Basic writing and formatting syntax
 https://help.github.com/en/articles/basic-writing-and-formatting-syntax#headings
 
-## questions
+## questions & remarques
+- re-verif /etc/apache2/site-availables/ and /etc/apache2/site-enabled !
+- re-config @IP and re-verif all services
+- 

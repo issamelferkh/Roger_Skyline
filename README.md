@@ -1,10 +1,10 @@
 - 6[After] Install VM
 - 5[After] Network Config
-- [x] SSH Config
+- [final test] SSH Config
 - 3[Not Yet] Script Config
 - 4[Not Yet] Firewalling and Security Config
-- 2[Not Yet] Partie Web
-- 1[Doc] Partie Déploiement
+- 2[final test] Partie Web
+- 1[final test] Partie Déploiement
 - 7[Not Yet] All Tests
 
 # Roger Skyline 1
@@ -77,18 +77,13 @@ if(new_cron != origine_cron)
 
 #### V.3.4 Firewalling and Security Config
 	
-- [ ] Set Firewall rules for allow only the services used outside the VM.
-	|-> restart ```ufw disable``` and ```ufw enable```
-	|-> default config ```sudo ufw default deny incoming``` and ```sudo ufw default allow outgoing```
-	|-> deny ICMP Ping in /etc/ufw/before.rules ```# ok icmp codes for INPUT``` -> DROP
-	|-> cmd ```sudo ufw status or sudo ufw status verbose``` 
-	```sudo ufw allow 222```
-	```sudo ufw allow 443```
+- [ ] Set Firewall rules for allow only the services used outside the VM. -> Firewall
 - [ ] Set DOS protection on open ports of your VM.
-	|-> file2bain (DOS protected) + Sloularis (DOS tool test)
-	|-> https://www.maketecheasier.com/fail2ban-protect-apache-ddos/
+	|-> file2bain (DOS protected) + Slowloris (DOS tool test)
+	|-> https://www.supinfo.com/articles/single/2660-proteger-votre-vps-apache-avec-fail2ban
 	|-> https://blog.mypapit.net/2011/07/how-to-secure-ssh-server-from-brute-force-and-ddos-with-fail2ban-ubuntu.html
 - [ ] Set Portscan protection on open ports of your VM.
+	|-> List open ports ```netstat -tulpn | grep LISTEN```
 	|-> http://www.auxnet.org/index.php/the-news/216-how-to-protect-from-port-scanning-and-smurf-attack-in-linux-server-by-iptables
 	|-> https://it.toolbox.com/question/how-to-block-port-scanning-tools-and-log-them-with-iptables-051115
 - [ ] Stop the services you don’t need for this project.
@@ -99,11 +94,10 @@ if(new_cron != origine_cron)
 
 ## Chapitre VI: Partie optionnelle
 ### VI.1 Partie Web
-- [ ]  Set a web server (Nginx or Apache) who should BE available on VM’s @IP or host (init.login.com for exemple).
+- [x]  Set a web server (Nginx or Apache) who should BE available on VM’s @IP or host (init.login.com for exemple).
 	|-> Install Apache ```apt-get install apache2```
 	|-> WWW Folder is in ```cd /var/www/html/```
-- [ ]  You have to set a self-signed SSL on all of your services.
-
+- [x]  You have to set a self-signed SSL on all of your services. look at -> OpenSSL
 - [x]  Set a webapp (with any language you wan) from those choices ->login page.
 
 
@@ -130,8 +124,3 @@ Bypass the writable check in ftp server add to the bottom this line ```allow_wri
 - bridge or NAT or ... look at -> https://www.virtualbox.org/manual/ch06.html
 ## Basic writing and formatting syntax
 https://help.github.com/en/articles/basic-writing-and-formatting-syntax#headings
-
-## questions & remarques
-- re-verif /etc/apache2/site-availables/ and /etc/apache2/site-enabled !
-- re-config @IP and re-verif all services
-- 

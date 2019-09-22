@@ -100,4 +100,3 @@ Deny ftp users browsing outside ```chroot_local_user=YES```
 Give the correct permissions to the uploaded files ```local_umask=022```
 Force ftp to show files begin with dot like ".htaccess" add to the bottom this line ```force_dot_files=YES```
 Bypass the writable check in ftp server add to the bottom this line ```allow_writeable_chroot=YES```
-

@@ -1,0 +1,27 @@
+## update_script once a week at 4AM
+```vim /root/script/update_script```
+```
+sudo apt-get -y update >> /var/log/update_script.log
+sudo apt-get -y upgrade >> /var/log/update_script.log
+```
+
+```vim /etc/crontab```
+```
+0  4    * * 1   root    sh /root/script/update_script
+```
+
+## monitor_script
+```
+hash /etc/crontab file > /root/script/origine_cron
+hash /etc/crontab file >> /root/script/new_cron
+if(new_cron != origine_cron)
+{
+  new_cron > origine_cron
+  send mait to root that cron file is modified 
+}
+```
+
+```vim /etc/crontab```
+```
+0  0    * * *   root    sh /root/script/monitor_script
+```

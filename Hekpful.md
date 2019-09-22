@@ -12,6 +12,8 @@ https://help.github.com/en/articles/basic-writing-and-formatting-syntax#headings
 
 - Show all services ```service --status-all```
 
+- crontab  https://crontab.guru/
+
 ## questions & remarques
 - re-verif /etc/apache2/site-availables/ and /etc/apache2/site-enabled !
 - re-config @IP and re-verif all services

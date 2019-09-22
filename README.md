@@ -58,21 +58,10 @@ Suivre Slash16 sur
 	|-> Change Owner ```chown user2:user2 .ssh``` and ```chown user2:user2 authorized_keys```
 	|-> Try logging with user2 ```ssh -p '222' 'user2@10.12.254.253'```
 
-#### V.3.3 Script Config
+#### V.3.3 Script Config: Look at -> Script
 - [ ] Create a script that updates all the sources of package, then your packages and qui log l’ensemble dans un fichier nommé /var/log/update_script.log.
-```sudo apt-get update >> /var/log/update_script.log```
-	|->test
 - [ ]  Create a scheduled task for this script once a week at 4AM and every time the machine reboots.
 - [ ]  Make a script to monitor changes of the /etc/crontab file and sends an email to root if it has been modified. 
-```
-hash /etc/crontab file > origine_cron
-hash /etc/crontab file > new_cron
-if(new_cron != origine_cron)
-{
-  new_cron > origine_cron
-  send mait to root that cron file is modified 
-}
-```
 - [ ]  Create a scheduled script task every day at midnight.
 
 #### V.3.4 Firewalling and Security Config

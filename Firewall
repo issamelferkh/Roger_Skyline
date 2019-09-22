@@ -1,3 +1,5 @@
+## Firewall Rules
+
 Http 80
 Https 443
 FTP 21
@@ -7,12 +9,22 @@ SSH 222
 - Flush Rules ```iptables -F```
 - Delete chaines ```iptables -X```
 
+- Allow port ```sudo iptables -A INPUT -p 'protocol' --dport 'port_num' -j ACCEPT```
 - Allow input trafic for connex deja etablie ```iptables -A INPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT```
 - Allow input trafic dport 222 ```iptables -A INPUT -p tcp --sport 222 -j ACCEPT```
  
+- Save Iptables Rules
+sudo apt-get install iptables-persistent
+sudo service iptables-persistent start
 
-# DDOS Protection
+
+
+## DDOS Protection for all open ports
+
 iptables -A INPUT -p tcp -m connlimit --connlimit-above 3 -j REJECT --reject-with tcp-reset
+
+# 80
+iptables -I INPUT -p tcp --dport 80 -m connlimit --connlimit-above 20 -j DROP
 
 # SSH Brute Force
 iptables -I INPUT -p tcp --dport 222 -m state --state NEW -m recent --set

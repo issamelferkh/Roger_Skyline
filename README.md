@@ -77,18 +77,15 @@ if(new_cron != origine_cron)
 
 #### V.3.4 Firewalling and Security Config
 	
-- [ ] Set Firewall rules for allow only the services used outside the VM. -> Firewall
-- [ ] Set DOS protection on open ports of your VM.
-	|-> file2bain (DOS protected) + Slowloris (DOS tool test)
-	|-> https://www.supinfo.com/articles/single/2660-proteger-votre-vps-apache-avec-fail2ban
-	|-> https://blog.mypapit.net/2011/07/how-to-secure-ssh-server-from-brute-force-and-ddos-with-fail2ban-ubuntu.html
+- [ ] Set Firewall rules for allow only the services used outside the VM: Look at -> Firewall
+- [ ] Set DOS protection on open ports of your VM: Look at -> Firewall
 - [ ] Set Portscan protection on open ports of your VM.
 	|-> List open ports ```netstat -tulpn | grep LISTEN```
 	|-> http://www.auxnet.org/index.php/the-news/216-how-to-protect-from-port-scanning-and-smurf-attack-in-linux-server-by-iptables
 	|-> https://it.toolbox.com/question/how-to-block-port-scanning-tools-and-log-them-with-iptables-051115
 - [ ] Stop the services you don’t need for this project.
 	|-> Show all services ```service --status-all```
-	|-> Run only: http(80), https(443), ssh(222), ftp()
+	|-> Run only: http(80), https(443), ssh(222), ftp(21)
 
 
 
@@ -97,8 +94,8 @@ if(new_cron != origine_cron)
 - [x]  Set a web server (Nginx or Apache) who should BE available on VM’s @IP or host (init.login.com for exemple).
 	|-> Install Apache ```apt-get install apache2```
 	|-> WWW Folder is in ```cd /var/www/html/```
-- [x]  You have to set a self-signed SSL on all of your services. look at -> OpenSSL
-- [x]  Set a webapp (with any language you wan) from those choices ->login page.
+- [x]  Set a self-signed SSL on all of your services: Look at -> OpenSSL
+- [x]  Set a webapp (with any language you wan) from those choices -> login page.
 
 
 ### VI.2 Partie Déploiement
@@ -115,12 +112,3 @@ Give the correct permissions to the uploaded files ```local_umask=022```
 Force ftp to show files begin with dot like ".htaccess" add to the bottom this line ```force_dot_files=YES```
 Bypass the writable check in ftp server add to the bottom this line ```allow_writeable_chroot=YES```
 
-
-## Helpful Links 
-### Verify your download
-- input => ```echo "ea6ccb5b57813908c006f42f7ac8eaa4fc603883a2d07876cf9ed74610ba2f53 *ubuntu-18.04.2-live-server-amd64.iso" | shasum -a 256 --check```
-- output => ubuntu-18.04.3-live-server-amd64.iso: OK
-### Network config => NOT
-- bridge or NAT or ... look at -> https://www.virtualbox.org/manual/ch06.html
-## Basic writing and formatting syntax
-https://help.github.com/en/articles/basic-writing-and-formatting-syntax#headings

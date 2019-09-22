@@ -1,8 +1,0 @@
-## questions & remarques
-- re-verif /etc/apache2/site-availables/ and /etc/apache2/site-enabled !
-- re-config @IP and re-verif all services
-
-portsentry
-psad
-ufw
-fail2ban

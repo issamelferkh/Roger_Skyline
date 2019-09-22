@@ -1,0 +1,32 @@
+Install OpenSSL ```apt-get install openssl```
+```mkdir /etc/apache2/ssl ```
+Auto-signer ton certificat ``` openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes```
+Enable SSL mode on apache2 ```a2enmod ssl```
+Creat VirtualHost for 443 port ```vim /etc/apache2/site-availables/website.conf```
+
+--------------------------------------------------------------------------------------------------------------------------------
+<VirtualHost *:80>
+ServerName      10.12.100.8
+# On redirige le port HTTP vers le port HTTPS
+Redirect        / https://10.12.100.8
+</VirtualHost>
+
+<VirtualHost *:443>
+ServerName      10.12.100.8
+DocumentRoot    /var/www/html
+
+SSLEngine on
+SSLCertificateFile    /etc/apache2/ssl/cert.pem
+SSLCertificateKeyFile /etc/apache2/ssl/key.pem
+# Facultatif, ici, on dit qu'on accepte tout les protocoles SSL sauf SSLv2 et SSLv3 (dont on accepte que le TLS ici)
+SSLProtocol all -SSLv2 -SSLv3
+# Facultatif, on dit que c'est le serveur qui donne l'ordre des algorithmes de chiffrement pendant la négociation avec le client
+SSLHonorCipherOrder on
+# Facultatif, algorithme de chiffrement disponibles (ne pas être trop méchant sinon beaucoup de navigateur un peu ancien ne pourront plus se connecter)
+SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES
+</VirtualHost>
+--------------------------------------------------------------------------------------------------------------------------------
+
+- Enable the VirtualHost ```a2ensite website.conf```
+- Disable Other VirtualHost default configs ```a2dissite 000-default.conf```
+- Restart Apache ```service apache2 restart```

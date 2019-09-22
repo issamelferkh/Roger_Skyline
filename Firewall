@@ -1,0 +1,21 @@
+Http 80
+Https 443
+FTP 21
+SSH 222
+
+- List Rules ```iptables -L```
+- Flush Rules ```iptables -F```
+- Delete chaines ```iptables -X```
+
+- Allow input trafic for connex deja etablie ```iptables -A INPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT```
+- Allow input trafic dport 222 ```iptables -A INPUT -p tcp --sport 222 -j ACCEPT```
+ 
+
+# DDOS Protection
+iptables -A INPUT -p tcp -m connlimit --connlimit-above 3 -j REJECT --reject-with tcp-reset
+
+# SSH Brute Force
+iptables -I INPUT -p tcp --dport 222 -m state --state NEW -m recent --set
+iptables -I INPUT -p tcp --dport 222 -m state --state NEW -m recent  --update --seconds 60 --hitcount 4 -j DROP
+# Test
+while true ; do nc 10.12.100.229 222 & ; done

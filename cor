@@ -1,0 +1,131 @@
+# VM Part
+Here we evaluate the VM Part.
+
+# Checks
+We will check in this section that the instructions
+have been respected. If only one of these points is wrong you must
+end the evaluation and give a score of 0. 
+- The VM runs well on a Linux OS. 
+- Technos such as Traefik as well as that Docker/Vagrant/etc. 
+containers are not used in this project.
+ Yes   No
+Install and Update
+We will check in this section that the VM is correctly
+installed and updated. To validate the evaluation of the VM,
+the following tests must be passed. If this one fails,
+the VM evaluation is failed and finished.
+
+- The size of the VM disk is 8 GB.
+
+- There is at least one 4.2 GB partition.
+
+- From the shell of the VM, run the command that lets you
+know if the OS and packages are up to date.
+If you discover that the OS or packages are not up to date,
+this test has failed.
+
+- From the shell of the VM, run the command that allows
+to know which packages are installed. If you discover that
+docker/vagrant/traefik type packages are installed,
+this test has failed.
+ Yes   No
+Partie Réseau et Sécurité
+Nous evaluons ici la partie Réseau et Sécurité de la VM.
+
+Réseau et Sécurité
+
+Nous allons verifier dans cette section que le reseau est bien 
+configuré sur la VM . Pour valider cette partie, 
+les tests suivants doivent être reussis. Si au moins l'un 
+d'entre eux échoue, l'évaluation du Réseau est échouée et 
+terminée. Passez à la section suivante du barème. 
+
+- Demandez à l'évalué de créer un user avec clé SSH pour pouvoir 
+se connecter à la VM. Il doit faire parti du groupe sudo. Si ce n'est pas 
+le cas, ce test est échoué. 
+
+- Si cet utilisateur execute la commande sudo il doit être capable 
+d'utiliser des commandes qui demandent des droits spéciaux. Si ce n'est 
+pas le cas, ce test est échoué. 
+
+- Vérifier que le service DHCP de la VM est bien désactivé. Si ce n'est 
+pas le cas, ce test est échoué. 
+
+- Choisissez un netmask different que /30, demandez a l'évalué de 
+configurer coté host et coté guest une connexion reseau avec ce netmask. 
+L'evalué choisira les IP. Si ce n'est pas réussi, ce test est échoué. 
+
+- Depuis un shell sur la VM, verifier que le port du SSH à bien 
+été modifié. L'accès SSH DOIT se faire avec des publickeys. 
+L'utilisateur root ne doit pas pouvoir se connecter en SSH. Si ce n'est 
+pas le cas, ce test est échoué. 
+
+- Depuis un shell sur la VM, lancez la commande qui permet 
+de lister l'ensemble des règles de pare-feu. Si aucune règle 
+ou que celle-ci ne sont pas suffisante par rapport à la 
+demande du sujet, alors ce test est échoué. 
+
+- Depuis un shell sur votre poste, lancez la commande qui permet 
+de tester un DOS (Slowloris ou autre). Vérifiez que tout fonctionne toujours. 
+De plus, vérifiez qu'un service type Fail2Ban (ou un service similaire) est installé sur la VM. 
+Si ce n'est pas le cas, ce test est échoué. 
+
+- Depuis un shell sur la VM, lancez la commande qui permet 
+de lister les ports ouverts. Vérifiez que les ports ouverts 
+correspondent à la demande du sujet. Si ce n'est pas le cas, ce 
+test est échoué. 
+
+- Vérifiez si les services actifs de la machine sont uniquement ceux 
+nécessaires à son bon fonctionnement. Si ce n'est pas le cas, ce test 
+est échoué. 
+
+- Vérifiez qu'il y a bien un script permet de mettre à jour l’ensemble des sources 
+de package, des packages, qui log dans le bon fichier et que celui-ci est en cron. 
+Si ce n'est pas le cas, ce test est échoué. 
+
+- Vérifiez qu'il y a bien un script permet de surveiller les modifications du fichier 
+/etc/crontab et qu'il envoie un mail à root s'il a été modifié. 
+Vous devez donc recevoir un mail montrant que le fichier a changé, soit en local avec 
+la commande mail, soit dans votre propre boite mail. Si ce n'est pas le cas, ce test 
+est échoué. 
+
+- Vérifiez qu'il y a bien du SSL auto-signé sur l'ensemble des services. Si ce n'est 
+pas le cas, ce test est échoué.
+
+ Yes   No
+Web Part
+Here we evaluate the Web Part.
+
+Web Server
+We will check in this section that the web server is
+implemented on the VM. To validate this part,
+the next three tests must be passed. If at least one of them
+of them fail, the Web server evaluation is failed and
+finished. Proceed to the next section of the scale.
+
+- From a shell of the VM, check that the package of a Web server
+is installed. If this is not the case, this test is failed.
+
+- From a shell of the VM, check that there is only one active configuration
+on the web server and not the default one. In addition, it
+should not "Listen" on the localhost of the VM. If it is not respected,
+this test has failed.
+
+- Check that the web application corresponds to what is required in
+the subject and is available on any browser on the IP
+of the VM or a host (init.login.fr for example). If it's not the 
+in this case, this test is failed.
+ Yes   No
+Deployment Part
+Here we evaluate the Deployment Part of the VM.
+
+Deployment Part
+We will check in this section that the deployment is going well.
+To validate this part, the following two tests must be succeed.
+
+- Ask the student to explain how he chose
+to do the deployment and why he chose this solution.
+
+- Make a minor modification on the site to ensure that the 
+deployment is working well.
+ Yes   No

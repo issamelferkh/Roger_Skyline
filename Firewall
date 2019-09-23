@@ -15,7 +15,8 @@ SSH 222
  
 - Save Iptables Rules
 sudo apt-get install iptables-persistent
-sudo service iptables-persistent start
+service netfilter-persistent start
+iptables-save >/etc/iptables/rules.v4
 
 
 

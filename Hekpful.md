@@ -22,3 +22,22 @@ portsentry
 psad
 ufw
 fail2ban
+
+
+
+
+atd.service                        loaded active running Deferred execution scheduler
+blk-availability.service           loaded active exited  Availability of block devices
+lvm2-lvmetad.service               loaded active running LVM2 metadata daemon
+lvm2-monitor.service               loaded active exited  Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling
+
+cloud-config.service               loaded active exited  Apply the settings specified in cloud-config
+cloud-final.service                loaded active exited  Execute cloud user/final scripts
+cloud-init-local.service           loaded active exited  Initial cloud-init job (pre-networking)
+cloud-init.service                 loaded active exited  Initial cloud-init job (metadata service crawler)
+
+
+
+lxcfs.service                      loaded active running FUSE filesystem for LXC
+lxd-containers.service             loaded active exited  LXD - container startup/shutdown
+for logical partitions

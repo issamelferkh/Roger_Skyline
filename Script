@@ -12,11 +12,11 @@ sudo apt-get -y upgrade >> /var/log/update_script.log
 
 ## monitor_script
 ```
-hash /etc/crontab file > /root/script/origine_cron
+md5sum /etc/crontab file > /root/script/origine_cron
 
 
 
-hash /etc/crontab file >> /root/script/new_cron
+md5sum /etc/crontab file >> /root/script/new_cron
 if(new_cron != origine_cron)
 {
   new_cron > origine_cron

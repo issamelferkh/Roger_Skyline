@@ -1,12 +1,3 @@
-- 6[After] Install VM
-- 5[After] Network Config
-- [final test] SSH Config
-- 3[Not Yet] Script Config
-- 4[Not Yet] Firewalling and Security Config
-- 2[final test] Partie Web
-- 1[final test] Partie Déploiement
-- 7[Not Yet] All Tests
-
 # Roger Skyline 1
 ## Chapitre V: Partie obligatoire
 ### V.1 Soyons plus que copains !
@@ -14,6 +5,7 @@ Suivre Slash16 sur
 - [x] Facebook
 - [x] Twittter
 - [x] Linkedin
+
 ### V.2 Partie VM
 #### Creating VM => NOT
 /Volumes/Storage/goinfre/iel-ferk/Roger_Skyline.vdi
@@ -58,25 +50,22 @@ Suivre Slash16 sur
 	|-> Change Owner ```chown user2:user2 .ssh``` and ```chown user2:user2 authorized_keys```
 	|-> Try logging with user2 ```ssh -p '222' 'user2@10.12.254.253'```
 
+
 #### V.3.3 Script Config: Look at -> Script
 - [ ] Create a script that updates all the sources of package, then your packages and qui log l’ensemble dans un fichier nommé /var/log/update_script.log.
 - [ ]  Create a scheduled task for this script once a week at 4AM and every time the machine reboots.
 - [ ]  Make a script to monitor changes of the /etc/crontab file and sends an email to root if it has been modified. 
 - [ ]  Create a scheduled script task every day at midnight.
 
-#### V.3.4 Firewalling and Security Config
-	
+#### V.3.4 Firewalling and Security Config	
 - [ ] Set Firewall rules for allow only the services used outside the VM: Look at -> Firewall
 - [ ] Set DOS protection on open ports of your VM: Look at -> Firewall
 - [ ] Set Portscan protection on open ports of your VM.
 	|-> List open ports ```netstat -tulpn | grep LISTEN```
-	|-> http://www.auxnet.org/index.php/the-news/216-how-to-protect-from-port-scanning-and-smurf-attack-in-linux-server-by-iptables
-	|-> https://it.toolbox.com/question/how-to-block-port-scanning-tools-and-log-them-with-iptables-051115
+	|-> https://www.digitalocean.com/community/tutorials/how-to-use-psad-to-detect-network-intrusion-attempts-on-an-ubuntu-vps
 - [ ] Stop the services you don’t need for this project.
 	|-> Show all services ```service --status-all```
-	|-> Run only: http(80), https(443), ssh(222), ftp(21)
-
-
+	systemctl list-units --type service | grep running
 
 ## Chapitre VI: Partie optionnelle
 ### VI.1 Partie Web

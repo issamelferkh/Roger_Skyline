@@ -38,6 +38,11 @@ cloud-init.service                 loaded active exited  Initial cloud-init job 
 
 
 
+
+snapd.service                      loaded active running Snappy daemon
+
+
+
 lxcfs.service                      loaded active running FUSE filesystem for LXC
 lxd-containers.service             loaded active exited  LXD - container startup/shutdown
 for logical partitions

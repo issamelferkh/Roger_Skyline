@@ -1,3 +1,15 @@
+# OSI Model (Open Systems Interconnection)
+https://fr.wikipedia.org/wiki/Mod%C3%A8le_OSI
+
+- 7	Application   =>  Point d'accès aux services réseau, Apps => HTTP, SMTP
+- 6	Présentation  =>	Gère le chiffrement, déchiffrement, convertition et la conmpression des données => SSL/TLS
+- 5	Session       =>	Gère les sessions entre les différentes applications => NETBIOS
+- 4	Transport     =>	Connexion de bout en bout, segmentation et contrôle de flux => TCP et UDP
+- 3	Réseau        =>	@IP
+- 2	Liaison       =>	@MAC
+- 1	Physique      => Transmission des signaux sous forme numérique ou analogique
+
+
 # IPv4 address
 ## Class
 Class A => range (0.0.0.0 to 127.255.255.255)   => N.H.H.H => 8 bits for network and 24 bits for hosts      ---> /8

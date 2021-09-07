@@ -1,3 +1,0 @@
-* config in ```vim /etc/netplan/50-cloud-init.yaml```
-* restart ```netplan --debug apply```
-* change web redirection ```vim /etc/apache2/sites-available/website.conf``` 

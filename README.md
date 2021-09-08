@@ -7,9 +7,9 @@
 - [Create non-root User](#Create_non_root_User)
 - [Network Config](#Network_Config)
 - [SSH Config](#SSH_Config)
-- [Firewalling and Security Config]($Firewalling_and_Security_Config)
-- [Script Config]($Script_Config)
-- [Web Part]($Web_Part)
+- [Firewalling and Security Config](#Firewalling_and_Security_Config)
+- [Script Config](#Script_Config)
+- [Web Part](#Web_Part)
 - [Deployment Part](#Deployment_Part)
 
 ## Introduction <a id="intro"></a>
